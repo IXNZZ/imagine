@@ -51,7 +51,7 @@ public class UnpackEventResponse implements EventResponse {
             return false;
         }
         EventType event = ctx.getEvent();
-        return event.identity() == DefaultEventType.ACCEPT_MESSAGE.identity();
+        return event.value() == DefaultEventType.ACCEPT_MESSAGE.value();
     }
 
 }

@@ -41,24 +41,24 @@ public enum DefaultEventType implements EventType {
     /**
      *  最大 127
      */
-    int identity;
+    int value;
 
-    DefaultEventType(int identity) {
-        if (identity > 127) {
-            throw new RuntimeException("event max size: 127, code: " + identity);
+    DefaultEventType(int value) {
+        if (value > 127) {
+            throw new RuntimeException("event max size: 127, code: " + value);
         }
-        this.identity = identity;
+        this.value = value;
     }
 
     @Override
-    public int identity() {
-        return identity;
+    public int value() {
+        return value;
     }
 
     public static EventType get(int identity) {
         EventType[] values = DefaultEventType.values();
         for (EventType e : values) {
-            if (e.identity() == identity) {
+            if (e.value() == identity) {
                 return e;
             }
         }

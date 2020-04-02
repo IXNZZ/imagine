@@ -80,7 +80,7 @@ public class NettyServerFactory extends AbstractNettyFactory {
                     });
                 }
             });
-            logger.info("Netty RPC Server started: {}", model.getPort());
+            logger.info("Netty RPC Server {} started: {}", future.channel().id().asShortText(), model.getPort());
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

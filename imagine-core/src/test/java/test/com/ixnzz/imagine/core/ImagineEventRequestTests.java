@@ -5,7 +5,6 @@ import com.ixnzz.imagine.core.netty.model.NettyClientModel;
 import com.ixnzz.imagine.core.netty.model.NettyServerModel;
 import com.ixnzz.imagine.core.serialize.ProtoStuffSerializer;
 import com.ixnzz.imagine.core.serialize.Serializer;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -47,7 +46,7 @@ public class ImagineEventRequestTests {
         EventRequest request = EventBuilder.newBuilder()
                 .encryptKey("testKey")
                 .consumer((c) -> {
-                    if (c.getEvent().identity() == DefaultEventType.CONNECT_SUCCESS.identity()) {
+                    if (c.getEvent().value() == DefaultEventType.CONNECT_SUCCESS.value()) {
                         System.out.println("ImagineEventRequestTests.testRequest 2");
                         c.getChannel().close();
                     }

@@ -25,7 +25,7 @@ public class ConsumerEventResponse implements EventResponse {
 
     @Override
     public void response(EventResponseContext ctx) {
-        logger.debug("response");
+        logger.debug("Consumer {}: {}",ctx.getEvent().name(), ctx.getChannel().id());
         if (consumer != null) {
             consumer.accept(ctx);
         }

@@ -17,7 +17,7 @@ public class ChannelEventResponse implements EventResponse {
 
     @Override
     public void response(EventResponseContext ctx) {
-        logger.debug("response");
+        logger.debug("Channel {}: {}",ctx.getEvent().name(), ctx.getChannel().id());
     }
 
     @Override

@@ -20,10 +20,10 @@ public class ImagineEventRequest implements EventRequest {
 
     public void request(EventRequestContext ctx) {
         EventType event = ctx.getEvent();
-        logger.debug("ImagineEventRequest.request");
         if (event == null) {
             throw new RuntimeException("event type is null.");
         }
+        logger.debug("start request: {}", ctx.getEvent().name());
 
         for (EventRequest request : events) {
             if (request.isRequest(ctx)) {

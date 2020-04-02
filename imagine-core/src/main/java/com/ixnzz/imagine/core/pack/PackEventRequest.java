@@ -37,12 +37,12 @@ public class PackEventRequest implements EventRequest {
             throw new NullPointerException("handler event is null");
         }
 
-        if (event.identity() > MAX_EVENT_SIZE) {
-            throw new IllegalArgumentException("event size: " + event.identity() + ", max event size: " + MAX_EVENT_SIZE);
+        if (event.value() > MAX_EVENT_SIZE) {
+            throw new IllegalArgumentException("event size: " + event.value() + ", max event size: " + MAX_EVENT_SIZE);
         }
 
 
-        length += (event.identity() << 24);
+        length += (event.value() << 24);
 
         if (ctx.isEncrypt()) {
             length += IS_ENCRYPT_INT;

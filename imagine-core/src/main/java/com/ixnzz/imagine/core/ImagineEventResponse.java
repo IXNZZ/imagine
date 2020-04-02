@@ -20,7 +20,7 @@ public class ImagineEventResponse implements EventResponse {
 
     @Override
     public void response(EventResponseContext ctx) {
-        logger.debug("{}: {}",ctx.getEvent().name(), ctx.getChannel().id());
+        logger.debug("Imagine {}: {}",ctx.getEvent().name(), ctx.getChannel().id());
         for (EventResponse response : responses) {
             if (response.isResponse(ctx)) {
                 response.response(ctx);

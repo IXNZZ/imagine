@@ -34,7 +34,7 @@ public class NettyEventRequest implements EventRequest {
 
     @Override
     public void request(EventRequestContext ctx) {
-        logger.debug("NettyEventRequest.request");
+        logger.debug("netty request: {}", ctx.getEvent().name());
         AbstractNettyFactory factory = getFactory(ctx);
         if (factory != null) {
             factory.create(ctx.getBody());

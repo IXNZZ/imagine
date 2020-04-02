@@ -26,7 +26,7 @@ public class RouterEventRequest implements EventRequest {
 
     @Override
     public void request(EventRequestContext ctx) {
-        logger.debug("request");
+        logger.debug("Router request: {}", ctx.getEvent().name());
     }
 
     @Override

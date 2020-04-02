@@ -17,7 +17,7 @@ public class DecryptEventResponse implements EventResponse {
 
     @Override
     public void response(EventResponseContext ctx) {
-        logger.debug("response");
+        logger.debug("Decrypt {}: {}",ctx.getEvent().name(), ctx.getChannel().id());
     }
 
     @Override

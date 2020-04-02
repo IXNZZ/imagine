@@ -22,7 +22,7 @@ public class EncryptEventRequest extends AESEncryptEvent implements EventRequest
 
     @Override
     public void request(EventRequestContext ctx) {
-        logger.debug("EncryptEventRequest.request");
+        logger.debug("encrypt request: {}", ctx.getEvent().name());
         if (ctx.isEncrypt()) {
             byte[] encrypt = super.encrypt(ctx.getBody());
             ctx.setBody(encrypt);

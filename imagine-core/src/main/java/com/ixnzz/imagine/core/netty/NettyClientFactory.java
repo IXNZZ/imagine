@@ -40,7 +40,6 @@ public class NettyClientFactory extends AbstractNettyFactory {
 
     @Override
     public void create(byte[] content) {
-        logger.debug("");
         NettyClientModel model = super.getSerializer().deserialize(content, NettyClientModel.class);
         if (model == null) {
             throw new ImagineException(ImagineSystemError.RPC_CREATE_CHANNEL);
@@ -84,7 +83,7 @@ public class NettyClientFactory extends AbstractNettyFactory {
                     });
                 }
             });
-            logger.info("Netty RPC Client started: {}", model.getPort());
+            logger.info("Netty RPC Client {} started: {}", connect.channel().id().asShortText(), model.getPort());
             connect.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

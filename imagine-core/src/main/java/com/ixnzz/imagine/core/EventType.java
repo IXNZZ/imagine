@@ -5,7 +5,7 @@ package com.ixnzz.imagine.core;
  */
 public interface EventType {
 
-    int identity();
+    int value();
 
     String name();
 }
