@@ -19,28 +19,26 @@ public class ByteMessageHandler extends ChannelInboundHandlerAdapter {
 
     private EventResponse response;
 
+    private boolean client;
+
     public ByteMessageHandler(EventResponse response) {
+        this(response, true);
+    }
+
+    public ByteMessageHandler(EventResponse response, boolean isClient) {
         this.response = response;
-    }
-
-    @Override
-    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        logger.debug("ByteMessageHandler.channelRegistered: {}", ctx.channel().id().asShortText());
-    }
-
-    @Override
-    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-        logger.debug("ByteMessageHandler.channelUnregistered: {}", ctx.channel().id().asShortText());
+        this.client = isClient;
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        logger.debug("ByteMessageHandler.channelActive: {}", ctx.channel().id().asShortText());
+        logger.debug("channelActive: {}", ctx.channel().id().asShortText());
+
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        logger.debug("ByteMessageHandler.channelInactive: {}", ctx.channel().id().asShortText());
+        logger.debug("channelInactive: {}", ctx.channel().id().asShortText());
     }
 
     @Override

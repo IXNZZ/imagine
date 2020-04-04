@@ -9,23 +9,17 @@ import org.slf4j.LoggerFactory;
  * @author: 左七
  * @create: 2020-03-26 14:00
  **/
-public abstract class AESEncryptEvent implements EncryptEvent {
+public class AESEncryptEvent implements EncryptEvent {
 
     private static final Logger logger = LoggerFactory.getLogger(AESEncryptEvent.class);
 
-    private String encryptKey;
-
-    public byte[] encrypt(byte[] content) {
-        logger.debug("encrypt: {}", encryptKey);
+    public byte[] encrypt(byte[] content, byte[] key) {
+        logger.debug("encrypt: {}", new String(key));
         return content;
     }
 
-    public byte[] decrypt(byte[] content) {
-        logger.debug("decrypt: {}", encryptKey);
+    public byte[] decrypt(byte[] content, byte[] key) {
+        logger.debug("decrypt: {}", new String(key));
         return content;
-    }
-
-    protected synchronized void updateEncryptKey(String encryptKey) {
-        this.encryptKey = encryptKey;
     }
 }

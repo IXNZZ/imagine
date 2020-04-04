@@ -4,8 +4,7 @@ import com.ixnzz.imagine.core.DefaultEventType;
 import com.ixnzz.imagine.core.EventResponse;
 import com.ixnzz.imagine.core.EventResponseContext;
 import com.ixnzz.imagine.core.channel.EventChannel;
-import com.ixnzz.imagine.core.exception.ImagineException;
-import com.ixnzz.imagine.core.exception.ImagineSystemError;
+import com.ixnzz.imagine.core.exception.SerializerException;
 import com.ixnzz.imagine.core.netty.handler.ByteMessageHandler;
 import com.ixnzz.imagine.core.netty.handler.DynamicLengthCodec;
 import com.ixnzz.imagine.core.netty.model.NettyClientModel;
@@ -42,7 +41,7 @@ public class NettyClientFactory extends AbstractNettyFactory {
     public void create(byte[] content) {
         NettyClientModel model = super.getSerializer().deserialize(content, NettyClientModel.class);
         if (model == null) {
-            throw new ImagineException(ImagineSystemError.RPC_CREATE_CHANNEL);
+            throw new SerializerException("client model serializer is null.");
         }
 
         super.getExecutor().execute(() -> coConnect(model));
@@ -77,7 +76,7 @@ public class NettyClientFactory extends AbstractNettyFactory {
                         EventResponseContext ctx = new EventResponseContext();
                         ctx.setEvent(DefaultEventType.CONNECT_SUCCESS);
                         ctx.setEncrypt(false);
-                        EventChannel eventChannel = new NettyEventChannel(connect.channel());
+                        EventChannel eventChannel = new NettyEventChannel(connect.channel(), true);
                         ctx.setChannel(eventChannel);
                         getEventResponse().response(ctx);
                     });

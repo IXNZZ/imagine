@@ -19,10 +19,7 @@ public class ImagineEventRequest implements EventRequest {
     private List<EventRequest> events = new LinkedList<>();
 
     public void request(EventRequestContext ctx) {
-        EventType event = ctx.getEvent();
-        if (event == null) {
-            throw new RuntimeException("event type is null.");
-        }
+
         logger.debug("start request: {}", ctx.getEvent().name());
 
         for (EventRequest request : events) {
@@ -34,6 +31,13 @@ public class ImagineEventRequest implements EventRequest {
 
     @Override
     public boolean isRequest(EventRequestContext ctx) {
+        if (ctx == null) {
+            throw new NullPointerException("Request context is null.");
+        }
+
+        if (ctx.getEvent() == null) {
+            throw new NullPointerException("Event type is null.");
+        }
         return true;
     }
 

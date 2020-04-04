@@ -4,8 +4,7 @@ import com.ixnzz.imagine.core.DefaultEventType;
 import com.ixnzz.imagine.core.EventResponse;
 import com.ixnzz.imagine.core.EventResponseContext;
 import com.ixnzz.imagine.core.channel.EventChannel;
-import com.ixnzz.imagine.core.exception.ImagineException;
-import com.ixnzz.imagine.core.exception.ImagineSystemError;
+import com.ixnzz.imagine.core.exception.SerializerException;
 import com.ixnzz.imagine.core.netty.handler.ByteMessageHandler;
 import com.ixnzz.imagine.core.netty.handler.DynamicLengthCodec;
 import com.ixnzz.imagine.core.netty.model.NettyServerModel;
@@ -43,7 +42,7 @@ public class NettyServerFactory extends AbstractNettyFactory {
         logger.debug("NettyServerFactory.create");
         NettyServerModel model = super.getSerializer().deserialize(content, NettyServerModel.class);
         if (model == null) {
-            throw new ImagineException(ImagineSystemError.RPC_CREATE_CHANNEL);
+            throw new SerializerException("client model serializer is null.");
         }
         getExecutor().execute(() -> doCreate(model));
     }
@@ -62,7 +61,7 @@ public class NettyServerFactory extends AbstractNettyFactory {
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
                                     .addLast("codec", new DynamicLengthCodec())
-                                    .addLast("byte", new ByteMessageHandler(getEventResponse()))
+                                    .addLast("byte", new ByteMessageHandler(getEventResponse(), false))
                             ;
                             logger.debug("ChannelInitializer.initChannel");
                         }
@@ -74,7 +73,7 @@ public class NettyServerFactory extends AbstractNettyFactory {
                         EventResponseContext ctx = new EventResponseContext();
                         ctx.setEvent(DefaultEventType.CREATE_SUCCESS);
                         ctx.setEncrypt(false);
-                        EventChannel eventChannel = new NettyEventChannel(future.channel());
+                        EventChannel eventChannel = new NettyEventChannel(future.channel(), false);
                         ctx.setChannel(eventChannel);
                         getEventResponse().response(ctx);
                     });
